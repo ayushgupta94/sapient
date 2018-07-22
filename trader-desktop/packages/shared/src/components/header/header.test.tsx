@@ -37,5 +37,4 @@ test('clears checked todos', () => {
         </MuiThemeProvider>
     );
     rootStore.orderStore.numOrdersToCreate = 1;
-    console.log(wrapper.html);
 });

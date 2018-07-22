@@ -97,7 +97,9 @@ export class OrderStore {
         orderAdapter.fetchOrders().then(this.initialize);
     }
 
-    deleteAllOrders() {}
+    deleteAllOrders() {
+        return this.ordersMap.clear();
+    }
 
     setFilter(filter: string) {
         this.filter = filter;
@@ -136,5 +138,6 @@ decorate(OrderStore, {
     createOrder: action,
     updateOrder: action,
     numOrders: computed,
-    setFilter: action
+    setFilter: action,
+    deleteAllOrders: action
 });

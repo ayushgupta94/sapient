@@ -37,9 +37,7 @@ export const OrderView = decorate<Props>(
                 executed
             } = this.props.order;
             const { classes } = this.props;
-            console.log(this.props.order);
-            console.log(this.props.order.status);
-
+    
             return (
                 <tr key={id}>
                     <td

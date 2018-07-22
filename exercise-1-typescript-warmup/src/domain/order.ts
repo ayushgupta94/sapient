@@ -22,37 +22,37 @@ export class Order {
         public side: Side,
         public symbol: string,
         public quantity: number
-    ) {}
+    ) { }
 
     place(placement: Placement) {
-        this.placementMap.set(placement.id,placement);
+        this.placementMap.set(placement.id, placement);
     }
 
     get status(): OrderStatus {
         // TODO: Convert placementMap into an array
         // Use the array reduce function to compute OrderStatus
-        const placementArr=Array.from(this.placementMap);
-        let done=0;
-        const committed=placementArr.reduce((acc,[k,v])=>{
-            const map=Array.from(v.executionMap);
-            const res=map.reduce((acc1,[k1,v1])=>{
-                return acc1+ v1.quantity;
-            },0);
-            done+=res;
-            return acc + v.quantity;
-        },0);
+  
+        let done = 0;
+        const committed = Array.from(this.placementMap).reduce((totalPlacement, [pKey, pValue]) => {
+            const map = Array.from(pValue.executionMap);
+            const res = map.reduce((totalExecution, [eKey, eValue]) => {
+                return totalExecution + eValue.quantity;
+            }, 0);
+            done += res;
+            return totalPlacement + pValue.quantity;
+        }, 0);
 
-         const notDone = committed - done;
-         const uncommitted = this.quantity - committed;
-      
+        const notDone = committed - done;
+        const uncommitted = this.quantity - committed;
+
         return {
             committed,
             done,
             notDone,
             uncommitted,
-            pctDone:done / this.quantity ,
+            pctDone: done / this.quantity,
             pctNotDone: notDone / this.quantity,
-            pctUncommitted :  uncommitted / this.quantity
+            pctUncommitted: uncommitted / this.quantity
         };
     }
 }

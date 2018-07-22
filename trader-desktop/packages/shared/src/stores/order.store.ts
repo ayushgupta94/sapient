@@ -33,19 +33,7 @@ export class OrderStore {
 
     createOrder = (jsOrder: JsOrder | JsOrder[]) => {
         if (Array.isArray(jsOrder)) {
-            jsOrder.map(order => {
-                this.ordersMap.set(
-                    order.id,
-                    new Order(
-                        order.id,
-                        order.side as Side,
-                        order.symbol,
-                        order.quantity,
-                        order.committed,
-                        order.executed
-                    )
-                );
-            });
+            this.initialize(jsOrder);
         } else {
             this.ordersMap.set(
                 jsOrder.id,

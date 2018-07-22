@@ -7,14 +7,15 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import Typography from '@material-ui/core/Typography';
 import { inject, observer } from 'mobx-react';
 import * as React from 'react';
+import { Order } from '../../domain/order';
 import { OrderView } from './OrderView';
 
 const styles = (theme: Theme) => ({
-    title: {
-        color: theme.palette.grey[300],
-        fontSize: 13,
-        fontWeight: theme.typography.fontWeightBold,
-        flex: 1
+    table: {
+        width: '100%'
+    },
+    tableRow: {
+        width: '10%'
     }
 });
 
@@ -29,27 +30,33 @@ export const OrderList = inject('rootStore')(
     decorate<OrderListProps>(
         observer(
             class extends React.Component<
-                OrderListProps & WithStyles<'title'>
+                OrderListProps & WithStyles<'table' | 'tableRow'>
             > {
                 render() {
-                    const { classes, children } = this.props;
+                    const { classes } = this.props;
                     const { orderStore } = this.props.rootStore;
 
                     return (
-                        <table style={{ width: '100%' }}>
+                        <table className={classes.table}>
                             <thead style={{ textAlign: 'left' }}>
                                 <tr>
-                                    <th style={{ width: '10%' }}>Side</th>
-                                    <th style={{ width: '10%' }}>Symbol</th>
-                                    <th style={{ width: '10%' }}>Quantity</th>
-                                    <th style={{ width: '10%' }}>Executed</th>
-                                    <th style={{ width: '10%' }}>Commited</th>
+                                    <th className={classes.tableRow}>Side</th>
+                                    <th className={classes.tableRow}>Symbol</th>
+                                    <th className={classes.tableRow}>
+                                        Quantity
+                                    </th>
+                                    <th className={classes.tableRow}>
+                                        Executed
+                                    </th>
+                                    <th className={classes.tableRow}>
+                                        Commited
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {orderStore
                                     .getVisibleOrders()
-                                    .map((order: any, index: number) => (
+                                    .map((order: Order, index: number) => (
                                         <OrderView
                                             key={order.id}
                                             order={order}

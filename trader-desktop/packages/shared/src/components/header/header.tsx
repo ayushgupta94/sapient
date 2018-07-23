@@ -56,7 +56,6 @@ export const Header = inject('rootStore')(
                 render() {
                     const { classes, children } = this.props;
                     const { orderStore } = this.props.rootStore;
-
                     return (
                         <AppBar position="static" elevation={0} color="default">
                             <Toolbar className={classes.toolbar}>
@@ -81,7 +80,6 @@ export const Header = inject('rootStore')(
                                     }
                                 />
                                 <Chip
-                                    color="secondary"
                                     label={orderStore.numOrders}
                                     className={classes.chip}
                                 />

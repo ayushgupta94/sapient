@@ -9,13 +9,19 @@ import { inject, observer } from 'mobx-react';
 import * as React from 'react';
 import { Order } from '../../domain/order';
 import { OrderView } from './OrderView';
+import { Collapse } from '@material-ui/core';
 
 const styles = (theme: Theme) => ({
     table: {
-        width: '100%'
+        width: '100%',
+        'border-collapse': 'collapse'
     },
     tableRow: {
-        width: '10%'
+        width: '10%',
+        height: '2em'
+    },
+    tableHead: {
+        background: theme.palette.grey[850]
     }
 });
 
@@ -30,7 +36,7 @@ export const OrderList = inject('rootStore')(
     decorate<OrderListProps>(
         observer(
             class extends React.Component<
-                OrderListProps & WithStyles<'table' | 'tableRow'>
+                OrderListProps & WithStyles<'table' | 'tableRow' | 'tableHead'>
             > {
                 render() {
                     const { classes } = this.props;
@@ -38,7 +44,10 @@ export const OrderList = inject('rootStore')(
 
                     return (
                         <table className={classes.table}>
-                            <thead style={{ textAlign: 'left' }}>
+                            <thead
+                                className={classes.tableHead}
+                                style={{ textAlign: 'left' }}
+                            >
                                 <tr>
                                     <th className={classes.tableRow}>Side</th>
                                     <th className={classes.tableRow}>Symbol</th>
@@ -51,6 +60,7 @@ export const OrderList = inject('rootStore')(
                                     <th className={classes.tableRow}>
                                         Commited
                                     </th>
+                                    <th />
                                 </tr>
                             </thead>
                             <tbody>

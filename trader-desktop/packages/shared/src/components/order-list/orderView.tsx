@@ -18,6 +18,12 @@ const styles = (theme: Theme) => ({
     },
     sellTextClass: {
         color: theme.palette.business.sellText
+    },
+    tableRow: {
+        'border-bottom': '1px solid black',
+        'border-top': '1px solid black',
+        background: theme.palette.grey[750],
+        height: '2em'
     }
 });
 
@@ -25,7 +31,7 @@ const decorate = withStyles(styles);
 
 export const OrderView = decorate<Props>(
     class extends React.Component<
-        Props & WithStyles<'buyTextClass' | 'sellTextClass'>
+        Props & WithStyles<'buyTextClass' | 'sellTextClass' | 'tableRow'>
     > {
         public render() {
             const {
@@ -37,9 +43,9 @@ export const OrderView = decorate<Props>(
                 executed
             } = this.props.order;
             const { classes } = this.props;
-    
+
             return (
-                <tr key={id}>
+                <tr className={classes.tableRow} key={id}>
                     <td
                         className={
                             side === 'BUY'

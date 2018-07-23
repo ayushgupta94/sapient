@@ -27,14 +27,3 @@ test('Header renders specified title', () => {
     );
     expect(wrapper.find('h1').text()).toEqual('React Template');
 });
-test('clears checked todos', () => {
-    const rootStore = new TestRootStore();
-    const wrapper = mount(
-        <MuiThemeProvider theme={getTestTheme()}>
-            <Provider rootStore={rootStore}>
-                <Header>React Template</Header>
-            </Provider>
-        </MuiThemeProvider>
-    );
-    rootStore.orderStore.numOrdersToCreate = 1;
-});
